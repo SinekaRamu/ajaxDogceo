@@ -20,21 +20,34 @@ select {
 }
 
 #loading-indicator {
-  vertical-align: center;
+  height: 70px;
   text-align: center;
+  font-size: 48px;
 }
 .selectionDiv {
   margin-bottom: 20px;
   padding: 20px;
+  text-align: center;
   background-color: #8eaccd;
   border-radius: 10px;
 }
 
 #imageBtn {
   display: block;
-  margin-top: 10px;
+  margin: 10px auto;
   padding: 5px 15px;
   border: 1px solid #545b77;
   border-radius: 8px;
   outline: none;
+}
+
+#imageDiv img {
+  margin: 0 auto;
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  border-radius: 10px;
 }

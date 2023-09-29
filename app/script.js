@@ -1,11 +1,12 @@
-document.onreadystatechange = function () {
-  if (document.readyState !== "complete") {
-    $("body").blur();
-    $("#loading-indicator").text("Loading");
-  } else {
+jQuery.ajaxSetup({
+  beforeSend: function () {
+    $("#loading-indicator").text("Loading...");
+  },
+  complete: function () {
     $("#loading-indicator").text("");
-  }
-};
+  },
+  success: function () {},
+});
 
 function getAllDogsFromApi() {
   // https://dog.ceo/api/breeds/list/all
@@ -21,9 +22,9 @@ function getAllDogsFromApi() {
     error: function () {
       console.log("Api request error");
     },
-    complete: function () {
-      console.log("API request completed");
-    },
+    // complete: function () {
+    //   console.log("API request completed");
+    // },
   });
 }
 
@@ -34,38 +35,42 @@ function getRandomImageOfDog(dogBreed) {
     method: "GET",
     success: function (resp) {
       console.log("Api request success");
-      console.log(resp);
+      const DogImageurl = resp.message;
+      displayDogImage(DogImageurl);
     },
     error: function () {
       console.log("Api request error");
     },
-    complete: function () {
-      console.log("API request completed");
-    },
+    // complete: function () {
+    //   $("#loading-indicator").hide();
+    //   console.log("API request completed");
+    // },
   });
 }
 
-function fetchDogImage() {
-  $("#imageBtn").click(function () {
-    let dogBreed = "sheepdog";
-    getRandomImageOfDog(dogBreed);
-    $("imgageDiv").append(
-      `<img src="https://dog.ceo/api/breed/${dogBreed}/images/random">`
-    );
-  });
+function displayDogImage(img) {
+  $("#imageDiv img").attr("src", img);
 }
+// function fetchDogImage() {
+$("#imageBtn").click(function () {
+  const selectedDog = $("#selectDogBreed").val();
+  console.log(selectedDog);
+
+  getRandomImageOfDog(selectedDog);
+});
+// }
 
 function addOption(selectDog) {
   console.log(selectDog[0]);
   for (let i = 0; i < selectDog.length; i++) {
     let dogName = selectDog[i];
-    $("#dogBreed").append(`<option value="${dogName}">
-      ${dogName}
-  </option>`);
+    $("#selectDogBreed").append(
+      `<option value="${dogName}">${dogName}</option>`
+    );
   }
 }
 
 $(document).ready(function () {
   getAllDogsFromApi();
-  fetchDogImage();
+  //   fetchDogImage();
 });
