@@ -37,15 +37,15 @@ async function start() {
     console.log(error);
   }
 }
-// async function start() {
-//   try {
-//     const res = await dogCeo.fetchRandomDogImage();
-//     const dogImageUrl = res.data.message;
-//     displayDogImage(dogImageUrl);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+async function fetchImage() {
+  try {
+    const res = await dogCeo.fetchRandomDogImage();
+    const dogImageUrl = res.data.message;
+    displayDogImage(dogImageUrl);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 start();
 
@@ -62,13 +62,20 @@ function addOption(selectDog) {
     option.value = `${dogName}`;
     option.innerText = `${dogName}`;
     dropDownList.append(option);
-    // dropDownList. = `<option value="${dogName}">${dogName}</option>`;
   }
 }
 
+// function clickFunctionForImage {
+const imgBtn = document.querySelector("#imageBtn");
+imgBtn.addEventListener("click", function () {
+  const selectedDog = document.querySelector("#selectDogBreed").value;
+  // console.log(selectDog);
+
+  fetchImage();
+});
+// }
 // $("#imageBtn").click(function () {
 //   const selectedDog = $("#selectDogBreed").val();
 //   console.log(selectedDog);
-
-//   getRandomImageOfDog(selectedDog);
+//   fetchImage(selectedDog);
 // });
