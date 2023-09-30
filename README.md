@@ -11,3 +11,5 @@ While fetching data from the api, the page have to load (like loading....). Then
 ## dropdown list using jQuery
 
 From api while getting the list of all breeds name, append them to the option category.
+
+## loading spinner
