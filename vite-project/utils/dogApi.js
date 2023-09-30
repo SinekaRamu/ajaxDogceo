@@ -8,7 +8,7 @@ const fetchRandomDogImage = () => {
   return axios.get("https://dog.ceo/api/breeds/image/random");
 };
 
-export const dogceo = {
+export const dogCeo = {
   fetchDogBreedNames,
   fetchRandomDogImage,
 };
