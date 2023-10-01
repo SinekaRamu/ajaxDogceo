@@ -2,17 +2,9 @@ import "./style.css";
 
 import { dogCeo } from "./utils/dogApi";
 
-// import { animals } from "./utils/dog";
-// // import { allDogs } from "./utils/dog";
-
-// function printDogs() {
-//   dogCeo.fetchRandomDogImage();
-//   console.log(dogCeo);
-// }
-
 document.querySelector("#app").innerHTML = `
-<div class="selectionDiv">
 <h1>DOG API PROJECT</h1>
+<div class="selectionDiv">
 <label for="dogBreed">Choose your Dog: </label>
 <select name="selectDogBreed" id="selectDogBreed">
   <option selected disabled>dog breeds</option>
@@ -28,7 +20,6 @@ document.querySelector("#app").innerHTML = `
 async function start() {
   try {
     const res = await dogCeo.fetchDogBreedNames();
-    // const dogImageUrl = res.data.message;
     console.log(res.data.message);
     const selectedDog = Object.keys(res.data.message);
     console.log(selectedDog);
@@ -37,21 +28,28 @@ async function start() {
     console.log(error);
   }
 }
-async function fetchImage() {
+
+async function fetchImage(dogName) {
   try {
-    const res = await dogCeo.fetchRandomDogImage();
-    const dogImageUrl = res.data.message;
-    displayDogImage(dogImageUrl);
+    if (dogName == "dog breeds") {
+      document.querySelector("#loading-indicator").textContent =
+        "select dog breed";
+    } else {
+      document.querySelector("#loading-indicator").textContent = "Loading...";
+      const res = await dogCeo.fetchRandomDogImage(dogName);
+      console.log(res.data.message);
+      const dogImageUrl = res.data.message;
+      displayDogImage(dogImageUrl);
+    }
   } catch (error) {
     console.log(error);
   }
 }
 
-start();
-
 function displayDogImage(img) {
   const imgBox = document.querySelector("#imageDiv img");
   imgBox.src = img;
+  document.querySelector("#loading-indicator").textContent = "";
 }
 
 function addOption(selectDog) {
@@ -65,17 +63,10 @@ function addOption(selectDog) {
   }
 }
 
-// function clickFunctionForImage {
+start();
+
 const imgBtn = document.querySelector("#imageBtn");
 imgBtn.addEventListener("click", function () {
   const selectedDog = document.querySelector("#selectDogBreed").value;
-  // console.log(selectDog);
-
-  fetchImage();
+  fetchImage(selectedDog);
 });
-// }
-// $("#imageBtn").click(function () {
-//   const selectedDog = $("#selectDogBreed").val();
-//   console.log(selectedDog);
-//   fetchImage(selectedDog);
-// });
